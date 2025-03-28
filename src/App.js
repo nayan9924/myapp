@@ -1,17 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Products from './components/Products';
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Cart from "./components/Cart";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import { useState } from "react";
+import { createContext } from "react";
+import Products from "./components/Products";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+export const appContext = createContext();
 
-function App() {
+function App(props) {
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
   return (
-    <>
-    <Header> </Header>
-    <Products> </Products>
-    <Footer> </Footer>
-    </>
+    <BrowserRouter>
+    <appContext.Provider value={{user,setUser,users,setUsers}}>
+      <Header />
+      <Routes>
+        <Route index element={<Products />} />
+        <Route path="home" element={<Products />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Routes>
+      <Footer />
+      </appContext.Provider>
+    </BrowserRouter>
   );
 }
-
 export default App;
