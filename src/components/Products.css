@@ -1,13 +1,13 @@
-.App-products-row{
+.App-Products-Row {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
-.App-products-box{
-    margin : 5px;
-    padding : 5px;
-    border : 1px solid gray;
-    border-radius: 10px;
-    width : 400px;
+.App-Products-Box {
+    width: 300px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid gray;
+    border-radius: 2px;
 }

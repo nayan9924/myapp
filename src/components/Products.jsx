@@ -1,32 +1,41 @@
-import "./Products.css"
-import { useContext, useState } from "react";
+import React from "react";
+import "./Products.css";
 import { appContext } from "../App";
-
+import { useContext } from "react";
 export default function Products() {
-    const {user,setUser,users,setUsers} =useContext(appContext);
-    const [msg,setMsg] = useState();
-    <h3>{users.email}</h3>
-    const products = [
-        { id: 1, name: "Product 1", Price: 50 },
-        { id: 1, name: "Product 2", Price: 45 },
-        { id: 1, name: "Product 3", Price: 30 },
-        { id: 1, name: "Product 4", Price: 55 },
-        { id: 1, name: "Product 5", Price: 60 },
-        { id: 1, name: "Product 6", Price: 50 },
-    ];
-    return (
-        <>
-            <div>
-                <div className="App-products-row">
-                    {products.map((value, index) => (
-                        <div className="App-products-box">
-                            <h3>{value.name}</h3>
-                            <h4>{value.Price}</h4>
-                            <button>Add to cart</button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </>
-    );
+  const { user, products, cart, setCart } = useContext(appContext);
+  const addToCart = (id) => {
+    setCart({ ...cart, [id]: 1 });
+  };
+  const increment = (id) => {
+    setCart({ ...cart, [id]: cart[id] + 1 });
+  };
+  const decrement = (id) => {
+    setCart({ ...cart, [id]: cart[id] - 1 });
+  };
+  return (
+    <>
+      <h3>{user.name}</h3>
+      <div className="App-Products-Row">
+        {products.map((value, index) => (
+          <div key={index} className="App-Products-Box">
+            <img src={value.url} />
+            <h3>{value.name}</h3>
+            <p>{value.desc}</p>
+            <h4>{value.price}</h4>
+            {cart[value.id] > 0 ? (
+              <div>
+                <button onClick={() => decrement(value.id)}>-</button>
+                {cart[value.id]}
+                <button onClick={() => increment(value.id)}>+</button>
+              </div>
+            ) : (
+              <button onClick={() => addToCart(value.id)}>Add to Cart</button>
+            )}
+          </div>
+        ))}
+      </div>
+      ;
+    </>
+  );
 }

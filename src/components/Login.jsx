@@ -1,24 +1,26 @@
 import React, { useState } from "react";
+import "./login.css";
 import { Link } from "react-router-dom";
 import { appContext } from "../App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const Navigate = useNavigate();
-  const { user, setUser, users, setUsers } = useContext(appContext);
+  const { user, setUser, users, setUsers ,cart} = useContext(appContext);
   const [msg, setMsg] = useState();
   const handleSubmit = () => {
     const found = users.find(
       (value) => value.email === user.email && value.password === user.password
     );
     if (found) {
-      Navigate("/");
+      Object.keys(cart).length >0 ? Navigate("/cart") : Navigate("/")
     } else {
       setMsg("Invalid Credentials");
     }
   };
   return (
-    <div>
+    <div className="App-Login-Row">
+      <div>
       <h2>Login Form</h2>
       {msg}
       <p>
@@ -41,6 +43,7 @@ export default function Login() {
       <p>
         <Link to="../register">New User Register Here!</Link>
       </p>
+      </div>
     </div>
   );
 }
